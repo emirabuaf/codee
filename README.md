@@ -1,6 +1,6 @@
 # React Coding Challenge
 
-Please clone this repo, upload your results in a new private repo, and give us (github users: `lvkleist`, `lukasklinser`, `vovchenso`) access when you're done.
+Please clone this repo, upload your results in a new private repo, and give us (github users: `lvkleist`, `lukasklinser`, `konradchilimoniuk`) access when you're done.
 
 ---
 
