@@ -1,14 +1,61 @@
-import React from "react";
-import { Box } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import Table from "@material-ui/core/Table";
+import TableContainer from "@material-ui/core/TableContainer";
+import Paper from "@material-ui/core/Paper";
+import { IItem } from "../@types/items";
 import ListHeader from "./ListHeader";
 import ListBody from "./ListBody";
+import Search from "./Search";
 
 const ItemList: React.FC = () => {
+    const [ items, setItems ] = useState<IItem[]>([]);
+
+    useEffect(() => {
+        fetch("api/items")
+            .then((data) => data.json())
+            .then((data) => {
+                setItems(data.payload);
+            });
+    //   .catch((error) => console.log(error));
+    }, []);
+
+    const sortAscending = () => {
+        const ascendingItems = items.sort((a, b) => {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+        });
+        setItems(ascendingItems);
+    };
+
+    const sortDescending = () => {
+        const descendingItems = items.sort((a, b) => {
+            if (a.name > b.name) {
+                return -1;
+            }
+            if (a.name < b.name) {
+                return 1;
+            }
+            return 0;
+        });
+        setItems(descendingItems);
+    };
+
     return (
-        <Box>
-            <ListHeader />
-            <ListBody />
-        </Box>
+        <TableContainer component={Paper}>
+            <Search />
+            <Table>
+                <ListHeader
+                    sortDescending={sortDescending}
+                    sortAscending={sortAscending}
+                />
+                <ListBody items={items} />
+            </Table>
+        </TableContainer>
     );
 };
 

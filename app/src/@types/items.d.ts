@@ -5,5 +5,5 @@ export interface IItem {
     name: string;
     status: TItemStatus;
     image: string | null;
-    date:any
+    date: Date;
 }

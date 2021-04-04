@@ -1,48 +1,40 @@
-import React from 'react';
+import React from "react";
 import {
-    Avatar, createStyles, Grid, makeStyles, Typography
-} from '@material-ui/core';
+    Avatar,
+    createStyles,
+    makeStyles,
+    TableRow,
+    TableCell
+} from "@material-ui/core";
 import { IItem } from "../@types/items";
 
-const useStyles = makeStyles((theme) => createStyles({
-    root: {
-        borderBottom: '1px solid #F1F1F1',
-        padding: theme.spacing(3, 1.5, 2.25),
-        alignItems: "center",
-    },
-    text: {
-        fontWeight: theme.typography.fontWeightLight,
+const useStyles = makeStyles(() => createStyles({
+    avatarContainer: {
+        display: "flex",
+        justifyContent: "center",
     },
     avatar: {
         height: "80px",
-        width: "80px"
-    }
+        width: "80px",
+    },
 }));
 type Props = {
-    item: IItem
-}
+  item: IItem;
+};
 
-const ListItem: React.FC<Props> = (props:Props) => {
+const ListItem: React.FC<Props> = (props: Props) => {
     const classes = useStyles();
 
     return (
-        <Grid container className={classes.root}>
-            <Grid item xs={2}>
-                <Typography className={classes.text}>{props.item.id}</Typography>
-            </Grid>
-            <Grid item xs={3}>
+        <TableRow key={props.item.id}>
+            <TableCell>{props.item.id}</TableCell>
+            <TableCell className={classes.avatarContainer}>
                 <Avatar className={classes.avatar} />
-            </Grid>
-            <Grid item xs={2}>
-                <Typography className={classes.text}>{props.item.name}</Typography>
-            </Grid>
-            <Grid item xs={2}>
-                <Typography className={classes.text}>{props.item.status}</Typography>
-            </Grid>
-            <Grid item xs={3}>
-                <Typography className={classes.text}>{props.item.date}</Typography>
-            </Grid>
-        </Grid>
+            </TableCell>
+            <TableCell align="center">{props.item.name}</TableCell>
+            <TableCell align="center">{props.item.date}</TableCell>
+            <TableCell align="center">{props.item.status}</TableCell>
+        </TableRow>
     );
 };
 
