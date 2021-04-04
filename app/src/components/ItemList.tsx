@@ -6,9 +6,12 @@ import { IItem } from "../@types/items";
 import ListHeader from "./ListHeader";
 import ListBody from "./ListBody";
 import Search from "./Search";
+import useDebounce from '../hooks/useDebouncedValue';
 
 const ItemList: React.FC = () => {
     const [ items, setItems ] = useState<IItem[]>([]);
+    const [ value, setValue ] = useState("");
+    const debouncedValue = useDebounce<string>(value, 200);
 
     useEffect(() => {
         fetch("api/items")
@@ -18,6 +21,10 @@ const ItemList: React.FC = () => {
             });
     //   .catch((error) => console.log(error));
     }, []);
+
+    const filterItems = items.filter((item: any) => {
+        return item.name.toLowerCase().includes(debouncedValue.toLowerCase());
+    });
 
     const sortAscending = () => {
         const ascendingItems = items.sort((a, b) => {
@@ -47,13 +54,13 @@ const ItemList: React.FC = () => {
 
     return (
         <TableContainer component={Paper}>
-            <Search />
+            <Search value={value} setValue={setValue} />
             <Table>
                 <ListHeader
                     sortDescending={sortDescending}
                     sortAscending={sortAscending}
                 />
-                <ListBody items={items} />
+                <ListBody items={filterItems} />
             </Table>
         </TableContainer>
     );
