@@ -8,7 +8,7 @@ import ListHeader from "./ListHeader";
 import ListBody from "./ListBody";
 import Search from "./Search";
 import useDebounce from "../hooks/useDebouncedValue";
-import Spinner from './Spinner';
+import Spinner from "./Spinner";
 
 const ItemList: React.FC = () => {
     const [ items, setItems ] = useState<IItem[]>([]);
@@ -19,15 +19,17 @@ const ItemList: React.FC = () => {
 
     useEffect(() => {
         setSpinner(true);
-        fetch("api/items")
-            .then((data) => data.json())
-            .then((data) => {
-                if (data.success === false) {
-                    setError(data.error);
-                }
-                setItems(data.payload);
-                setSpinner(false);
-            });
+        setTimeout(() => {
+            fetch("api/items")
+                .then((data) => data.json())
+                .then((data) => {
+                    if (data.success === false) {
+                        setError(data.error);
+                    }
+                    setItems(data.payload);
+                    setSpinner(false);
+                });
+        }, 1000);
     }, []);
 
     const fetchItems = (updatedItem: IItem) => {
@@ -51,8 +53,8 @@ const ItemList: React.FC = () => {
 
     return (
         <TableContainer component={Paper}>
-            {!error || !spinner ? <Search value={value} setValue={setValue} /> : null}
-            {!error || !spinner ? (
+            {!error ? <Search value={value} setValue={setValue} /> : null}
+            {!error ? (
                 <Table>
                     <ListHeader items={filterItems} setItems={setItems} />
                     <ListBody fetchItems={fetchItems} items={filterItems} />
@@ -60,7 +62,7 @@ const ItemList: React.FC = () => {
             ) : (
                 <Typography>{error}</Typography>
             )}
-            <Spinner />
+            {spinner ? <Spinner /> : null}
         </TableContainer>
     );
 };

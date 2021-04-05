@@ -17,10 +17,11 @@ const useStyles = makeStyles<Theme, SelectProps>((theme) => createStyles({
         backgroundColor: (props) => (props.status === "new"
             ? "#4791db"
             : props.status === "processing"
-                ? "##ffb74d"
+                ? "#ffb74d"
                 : props.status === "done"
                     ? "#81c784"
                     : "#e57373"),
+
         width: "150px",
         padding: "10px",
         color: '#fff'
