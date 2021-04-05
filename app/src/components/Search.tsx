@@ -3,7 +3,7 @@ import { TextField } from "@material-ui/core";
 
 type Props = {
   value: string;
-  setValue: (e: any) => void;
+  setValue: (e: string) => void;
 };
 const Search: React.FC<Props> = (props: Props) => {
     const handleChange = (e) => {

@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 type ModalProps = {
     open:boolean,
+    image: string | null,
     onClose: (e:any) => void,
     name: string
 }
@@ -39,7 +40,7 @@ const ImageModal: React.FC<ModalProps> = (props:ModalProps) => {
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
-            <img alt={props.name} />
+            <img alt={props.name} src={props.image ? props.image : undefined} />
         </div>
     );
 

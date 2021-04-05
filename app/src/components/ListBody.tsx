@@ -5,14 +5,16 @@ import { IItem } from "../@types/items";
 
 type Props = {
   items: IItem[];
+  fetchItems: (str: IItem) => void;
 };
 
 const ListBody: React.FC<Props> = (props: Props) => {
     return (
         <TableBody>
-            {props.items && props.items.map((item) => (
-                <ListItem item={item} key={item.id} />
-            ))}
+            {props.items
+        && props.items.map((item) => (
+            <ListItem fetchItems={props.fetchItems} item={item} key={item.id} />
+        ))}
         </TableBody>
     );
 };

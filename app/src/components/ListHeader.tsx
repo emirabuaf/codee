@@ -1,19 +1,59 @@
-import React from "react";
-import { TableHead, TableRow, TableCell } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import {
+    TableHead,
+    TableCell,
+    TableRow,
+    createStyles,
+    makeStyles,
+} from "@material-ui/core";
+import { IItem } from "../@types/items";
+
+const useStyles = makeStyles(() => createStyles({
+    name: {
+        cursor: "pointer",
+    },
+    headerRow: {
+        backgroundColor: "aliceblue"
+    }
+}));
 
 type Props = {
-  sortAscending: (e: any) => void;
-  sortDescending: (e: any) => void;
+  setItems: (e: IItem[]) => void;
+  items: IItem[];
 };
 
 const ListHeader: React.FC<Props> = (props: Props) => {
+    const classes = useStyles();
+    const [ sort, setSort ] = useState<null | "asc" | "desc">(null);
+
+    const sortItems = () => {
+        if (sort === null || sort === "desc") {
+            setSort("asc");
+        } else {
+            setSort("desc");
+        }
+    };
+
+    useEffect(() => {
+        const sortedItems = props.items.sort((a, b) => {
+            if (a.name < b.name) {
+                return sort === "asc" ? -1 : 1;
+            }
+            if (a.name > b.name) {
+                return sort === "asc" ? 1 : -1;
+            }
+            return 0;
+        });
+        props.setItems(sortedItems);
+    }, [ sort ]);
+
     return (
-        <TableHead>
+        <TableHead className={classes.headerRow}>
             <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell onClick={props.sortDescending} align="center">Image</TableCell>
-                <TableCell onClick={props.sortAscending} align="center">
-                    Name
+                <TableCell align="center">Image</TableCell>
+                <TableCell className={classes.name} onClick={sortItems} align="center">
+                    Name{sort && `(${sort})`}
                 </TableCell>
                 <TableCell align="center">Date</TableCell>
                 <TableCell align="center">Status</TableCell>
