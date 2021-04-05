@@ -1,5 +1,5 @@
 const express = require("express");
-
+const bodyParser = require("body-parser");
 const app = express();
 
 const ITEMS = [
@@ -53,6 +53,9 @@ const ITEMS = [
     date: new Date(),
   },
 ];
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.get("/items", (req, res) => {
   if (Math.random() >= 0.5) {

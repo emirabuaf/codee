@@ -7,6 +7,7 @@ import {
     TableCell,
 } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
+import { format } from "date-fns";
 import { IItem } from "../@types/items";
 import Modal from "./Modal";
 import SelectComponent from "./SelectComponent";
@@ -29,9 +30,15 @@ type Props = {
   fetchItems: (str: IItem) => void;
 };
 
+export const formatToDate = (date: Date) => {
+    return format(new Date(date), 'dd/MM/yyyy');
+};
+
 const ListItem: React.FC<Props> = (props: Props) => {
     const classes = useStyles(props);
     const [ open, setOpen ] = useState(false);
+
+    const formattedDate = formatToDate(props.item.date);
 
     const handleOpen = () => {
         setOpen(true);
@@ -57,12 +64,12 @@ const ListItem: React.FC<Props> = (props: Props) => {
                             src={props.item.image ? props.item.image : undefined}
                         />
                     ) : (
-                        <Avatar onClick={handleOpen} className={classes.avatar} />
+                        <Avatar className={classes.avatar} />
                     )}
                 </Paper>
             </TableCell>
             <TableCell align="center">{props.item.name}</TableCell>
-            <TableCell align="center">{props.item.date.split("T")[0]}</TableCell>
+            <TableCell align="center">{formattedDate}</TableCell>
             <TableCell align="center">
                 <SelectComponent
                     fetchItems={props.fetchItems}
