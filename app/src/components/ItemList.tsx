@@ -22,7 +22,7 @@ const ItemList: React.FC = () => {
     //   .catch((error) => console.log(error));
     }, []);
 
-    const filterItems = items.filter((item: any) => {
+    const filterItems = items.filter((item: IItem) => {
         return item.name.toLowerCase().includes(debouncedValue.toLowerCase());
     });
 
