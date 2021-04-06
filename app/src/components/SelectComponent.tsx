@@ -57,9 +57,11 @@ const SelectComponent: React.FC<SelectProps> = (props: SelectProps) => {
     };
 
     return (
-        <FormControl className={classes.formControl}>
+        <FormControl
+            defaultValue={newStatus}
+            className={classes.formControl}
+        >
             <NativeSelect
-                defaultValue={newStatus}
                 value={status}
                 onChange={handleChange}
                 className={classes.status}
