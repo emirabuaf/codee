@@ -1,8 +1,3 @@
-# React Coding Challenge
-
-Please clone this repo, upload your results in a new private repo, and give us (github users: `lvkleist`, `lukasklinser`, `konradchilimoniuk`) access when you're done.
-
----
 
 To run server go to `server` folder and run
 ```
@@ -39,13 +34,3 @@ TASKS:
 5. Implement ability to change item status 
 6. Show Spinner on loading data
 7. Handle API errors - show error message
-
-
-#### What we value
-We don't care whether you're done in 2 hours or take 7 hours to complete the tasks below. Here's a brief overview of what we'd like to see in your submission →
-Try to stick to what you'd want to see in "production-level code". This means structuring your code in a maintainable way and adopting coding conventions that we use. Specifically, we would advise that you:
-1. use TypeScript
-2. Use StyledComponents for styling
-3. Split logic to smaller components
-4. think of using React Context API
-5. try to avoid using class component (use functional components with hooks instead)
